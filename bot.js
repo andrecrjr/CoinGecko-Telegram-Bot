@@ -1,20 +1,9 @@
 const mercadoApi = require('./src/controllers/daoRequests')
-'use strict;'
+
 module.exports = () =>{
-    const TeleBot = require('telebot');
-    if(process.env.NODE_ENV !== 'prd'){
-        require('dotenv').config();
-        bot = new TeleBot(process.env.TOKEN_BTC)
-    }else{
-        bot = new TeleBot({
-            token:process.env.TOKEN_BTC, 
-            usePlugins: ['commandButton'],
-        })
-    }
-
-
+    const bot = require('./config')
     bot.on(['/start', '/hello'], (msg) =>{
-        const texto = `Bem vindo ao bot (não-oficial) para consultas criptomoedas do Mercado Bitcoin!`
+        const texto = `Bem vindo ao bot (não-oficial) para consultas em criptomoedas do Mercado Bitcoin!`
             // Inline keyboard markup
             const replyMarkup = bot.inlineKeyboard([
                 [

@@ -1,6 +1,8 @@
 var express = require('express');
 var packageInfo = require('./package.json');
+
 require('./bot')();
+
 var app = express();
 
 app.get('/', function (req, res) {
