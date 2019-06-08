@@ -80,8 +80,9 @@ bot.on(['/xrp','/XRP', '/ripple'], async (msg) =>{
         let textoOp =  data.renderCoin(response)
         bot.sendMessage(msg.from.id, `${textoOp}`, {parseMode:'html'})
     }catch(err){
+        console.log(err)
         bot.sendMessage(msg.from.id, `Deu ruim, espere mais um tempo e tente novamente`)
     }
 })
 
-bot.start();
+module.exports = bot;
