@@ -1,6 +1,6 @@
 var express = require('express');
 var packageInfo = require('./package.json');
-
+require('./bot')();
 var app = express();
 
 app.get('/', function (req, res) {
@@ -8,6 +8,7 @@ app.get('/', function (req, res) {
 });
 
 let port = process.env.PORT || 3000
+
 
 var server = app.listen(port,"0.0.0.0", function () {
   var host = server.address().address;

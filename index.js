@@ -1,3 +1,1 @@
-
-require('./bot');
 require('./server');
