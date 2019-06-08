@@ -2,7 +2,7 @@ const bot = require('./config')
 const mercadoApi = require('./src/controllers/daoRequests')
 
 bot.on(['/start', '/hello'], (msg) =>{
-    const texto = `Bem vindo ao bot (não-oficial) para consultas criptomoedas do Mercado Bitcoin\nby: @andrecrjr`
+    const texto = `Bem vindo ao bot (não-oficial) para consultas criptomoedas do Mercado Bitcoin!`
         // Inline keyboard markup
         const replyMarkup = bot.inlineKeyboard([
             [

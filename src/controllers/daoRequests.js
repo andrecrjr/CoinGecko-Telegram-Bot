@@ -42,7 +42,6 @@ class mercadobitcoinApi{
     }
 
     renderCoin(data){
-        console.log(data)
         let date = convertDate(data.ticker.date)
         let ultimoValor = float(data.ticker.last).toFixed(2)
         let maxValor24 = float(data.ticker.high).toFixed(2)
