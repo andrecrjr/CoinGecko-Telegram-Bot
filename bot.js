@@ -13,7 +13,6 @@ if(process.env.NODE_ENV !== 'prd'){
             url: 'https://stock-mercado-bitcoin-bot.herokuapp.com', // HTTPS url to send updates to.
             host: '0.0.0.0', // Webhook server host.
             port: 443, // Server port.
-            maxConnections: 40 // Optional. Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery
         }
     })
 }
@@ -102,5 +101,10 @@ bot.on(['/xrp','/XRP', '/ripple'], async (msg) =>{
         bot.sendMessage(msg.from.id, `Deu ruim, espere mais um tempo e tente novamente`)
     }
 })
+
+/*
+if(process.env.NODE_ENV !== 'prd'){
+    bot.start()
+}*/
 
 module.exports = bot;
