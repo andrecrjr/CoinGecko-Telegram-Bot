@@ -35,5 +35,8 @@ const convertMonth = (month) =>{
     }
 }
 
+const float = (money) =>{
+    return parseFloat(money)
+}
 
-module.exports = convertDate
+module.exports = {convertDate, float}
