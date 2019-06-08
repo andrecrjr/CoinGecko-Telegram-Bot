@@ -6,8 +6,8 @@
     "telebot": "^1.2.6"
   },
   "scripts": {
-    "start": "node bot.js",
-    "dev": "nodemon bot.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
