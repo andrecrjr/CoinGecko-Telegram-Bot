@@ -36,7 +36,8 @@ class mercadobitcoinApi{
         try{
             const response = await axios.get(this.endpointCoin+`/ticker`)
             return response.data
-        }catch{
+        }catch(err){
+            return err
             console.log('error')
         }
     }
