@@ -43,10 +43,12 @@ class mercadobitcoinApi{
     }
 
     renderCoin(data){
-        let date = convertDate(data.ticker.date)
+        let date = convertDate()
         let ultimoValor = float(data.ticker.last).toFixed(2)
         let maxValor24 = float(data.ticker.high).toFixed(2)
-        let textOperation = `$${this.coin} <b>${this.discoverName()} / ${date}</b>\nMaior valor nas ultimas 24h: R$${maxValor24}\n<b>Valor atual:</b> R$<b>${ultimoValor}</b>\n\n<b>Volte ao</b> /menu `
+        let highValue = `\nMaior valor nas ultimas 24h: <b>R$${maxValor24}</b>`
+        let atualValue = `\nValor atual: <b>R$${ultimoValor}</b>`
+        let textOperation = `${this.coin} <b>${this.discoverName()} / ${date}</b>${highValue}${atualValue}`
         return textOperation
     }
 

@@ -4,7 +4,7 @@ const bot = require('./config')
 module.exports = () =>{
     
     bot.on(['/start', '/hello'], (msg) =>{
-        const texto = `Bem vindo ao bot (não-oficial) para consultas em criptomoedas do Mercado Bitcoin!`
+        const texto = `Bem vindo ao bot (não-oficial) para consultas em criptomoedas do Mercado Bitcoin! created by @andrecrjr`
             // Inline keyboard markup
             const replyMarkup = bot.inlineKeyboard([
                 [
@@ -57,11 +57,15 @@ module.exports = () =>{
             let response = await data.requestTickerCoin()
             let textoLtc =  data.renderCoin(response)
             bot.sendMessage(msg.from.id, `${textoLtc}`, {parseMode:'html'})
+            if(msg.from.id){
+                return msg.reply.text("Para voltar ao /menu")
+            }
         }catch(err){
             console.log(err)
             bot.sendMessage(msg.from.id, `Deu ruim, espere mais um tempo e tente novamente`)
         }
     })
+
 
     bot.on(['/btc','/BTC', '/bitcoin'], async(msg) =>{
         try{
@@ -69,6 +73,9 @@ module.exports = () =>{
             let response = await data.requestTickerCoin()
             let textoLtc =  data.renderCoin(response)
             bot.sendMessage(msg.from.id, `${textoLtc}`, {parseMode:'html'})
+            if(msg.from.id){
+                return msg.reply.text("Para voltar ao /menu")
+            }
         }catch(err){
             console.log(err)
             bot.sendMessage(msg.from.id, `Deu ruim, espere mais um tempo e tente novamente`)
@@ -81,6 +88,9 @@ module.exports = () =>{
             let response = await data.requestTickerCoin()
             let textoOp =  data.renderCoin(response)
             bot.sendMessage(msg.from.id, `${textoOp}`, {parseMode:'html'})
+            if(msg.from.id){
+                return msg.reply.text("Para voltar ao /menu")
+            }
         }catch(err){
             console.log(err)
             bot.sendMessage(msg.from.id, `Deu ruim, espere mais um tempo e tente novamente`)
