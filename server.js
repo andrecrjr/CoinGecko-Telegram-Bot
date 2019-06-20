@@ -1,6 +1,6 @@
 var express = require('express');
 
-require('./bot')();
+require('./src/routes/bot')();
 
 var app = express();
 
