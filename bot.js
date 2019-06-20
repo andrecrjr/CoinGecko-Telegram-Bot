@@ -57,9 +57,6 @@ module.exports = () =>{
             let response = await data.requestTickerCoin()
             let textoLtc =  data.renderCoin(response)
             bot.sendMessage(msg.from.id, `${textoLtc}`, {parseMode:'html'})
-            if(msg.from.id){
-                return msg.reply.text("Para voltar ao /menu")
-            }
         }catch(err){
             console.log(err)
             bot.sendMessage(msg.from.id, `Deu ruim, espere mais um tempo e tente novamente`)
@@ -73,9 +70,6 @@ module.exports = () =>{
             let response = await data.requestTickerCoin()
             let textoLtc =  data.renderCoin(response)
             bot.sendMessage(msg.from.id, `${textoLtc}`, {parseMode:'html'})
-            if(msg.from.id){
-                return msg.reply.text("Para voltar ao /menu")
-            }
         }catch(err){
             console.log(err)
             bot.sendMessage(msg.from.id, `Deu ruim, espere mais um tempo e tente novamente`)
@@ -88,9 +82,6 @@ module.exports = () =>{
             let response = await data.requestTickerCoin()
             let textoOp =  data.renderCoin(response)
             bot.sendMessage(msg.from.id, `${textoOp}`, {parseMode:'html'})
-            if(msg.from.id){
-                return msg.reply.text("Para voltar ao /menu")
-            }
         }catch(err){
             console.log(err)
             bot.sendMessage(msg.from.id, `Deu ruim, espere mais um tempo e tente novamente`)
