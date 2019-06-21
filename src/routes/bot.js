@@ -1,5 +1,5 @@
-const mercadoApi = require('./src/controllers/daoRequests')
-const bot = require('./config')
+const mercadoApi = require('../controllers/daoRequests')
+const bot = require('../../config')
 
 module.exports = () =>{
     
