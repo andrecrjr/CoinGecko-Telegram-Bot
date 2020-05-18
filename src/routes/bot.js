@@ -1,93 +1,88 @@
-const mercadoApi = require('../controllers/daoRequests')
-const bot = require('../../config')
+const criptoApi = require("../controllers/daoRequests");
+const bot = require("../../config");
 
-module.exports = () =>{
-    
-    bot.on(['/start', '/hello'], (msg) =>{
-        const texto = `Bem vindo ao bot (não-oficial) para consultas em criptomoedas do Mercado Bitcoin! created by @andrecrjr`
-            // Inline keyboard markup
-            const replyMarkup = bot.inlineKeyboard([
-                [
-                    // First row with command callback button
-                    bot.inlineButton('Litecoin', {callback: '/ltc'})
-                ],
-                [
-                    // Second row with regular command button
-                    bot.inlineButton('Bitcoin', {callback: '/btc'})
-                ],
-                [
-                    // Second row with regular command button
-                    bot.inlineButton('Ripple', {callback: '/xrp'})
-                ]
-            ]);
-        
-            // Send message with keyboard markup
-            msg.reply.text()
-            return bot.sendMessage(msg.from.id, `Olá ${msg.chat.username} , ${texto}\nEssas são as criptomoedas:\n`, {replyMarkup});
+const texto = `Bem vindo ao bot (não-oficial) para consultas em criptomoedas do GeckoCoin! created by @andrecrjr.
+\n <a href="https://brave.com/eel072">Use Brave Browser para ganhar tokens BAT</a> `;
+
+module.exports = () => {
+  bot.on(["/start", "/hello"], (msg) => {
+    // Inline keyboard markup
+    const replyMarkup = bot.inlineKeyboard([
+      [
+        // First row with command callback button
+        bot.inlineButton("Litecoin", { callback: "/ltc" }),
+      ],
+      [
+        // Second row with regular command button
+        bot.inlineButton("Bitcoin", { callback: "/btc" }),
+      ],
+      [
+        // Second row with regular command button
+        bot.inlineButton("Ripple", { callback: "/xrp" }),
+      ],
+      [bot.inlineButton("BAT", { callback: "/bat" })],
+    ]);
+
+    // Send message with keyboard markup
+    msg.reply.text();
+    return bot.sendMessage(msg.from.id, `Olá ${msg.chat.username} , ${texto}`, {
+      replyMarkup,
+      parseMode: "html",
     });
+  });
 
+  bot.on("/menu", (msg) => {
+    // Inline keyboard markup
+    const replyMarkup = bot.inlineKeyboard([
+      [
+        // First row with command callback button
+        bot.inlineButton("Litecoin", { callback: "/ltc" }),
+      ],
+      [
+        // Second row with regular command button
+        bot.inlineButton("Bitcoin", { callback: "/btc" }),
+      ],
+      [
+        // Second row with regular command button
+        bot.inlineButton("Ripple", { callback: "/xrp" }),
+      ],
+    ]);
 
-    bot.on('/menu', msg => {
-
-        // Inline keyboard markup
-        const replyMarkup = bot.inlineKeyboard([
-            [
-                // First row with command callback button
-                bot.inlineButton('Litecoin', {callback: '/ltc'})
-            ],
-            [
-                // Second row with regular command button
-                bot.inlineButton('Bitcoin', {callback: '/btc'})
-            ],
-            [
-                // Second row with regular command button
-                bot.inlineButton('Ripple', {callback: '/xrp'})
-            ]
-        ]);
-
-        // Send message with keyboard markup
-        return bot.sendMessage(msg.from.id, 'Essas são as criptomoedas:\n', {replyMarkup});
+    // Send message with keyboard markup
+    return bot.sendMessage(msg.from.id, "Essas são as criptomoedas:\n", {
+      replyMarkup,
     });
+  });
 
+  bot.on(["/ltc", "/LTC", "/litecoin"], async (msg) => {
+    return await getCryptoApi(bot, "ltc", msg);
+  });
 
+  bot.on(["/btc", "/BTC", "/bitcoin"], async (msg) => {
+    return await getCryptoApi(bot, "btc", msg);
+  });
 
-    bot.on(['/ltc','/LTC', '/litecoin'], async (msg) =>{
-        try{
-            const data = new mercadoApi('ltc')
-            let response = await data.requestTickerCoin()
-            let textoLtc =  data.renderCoin(response)
-            bot.sendMessage(msg.from.id, `${textoLtc}`, {parseMode:'html'})
-        }catch(err){
-            console.log(err)
-            bot.sendMessage(msg.from.id, `Deu ruim, espere mais um tempo e tente novamente`)
-        }
-    })
+  bot.on(["/xrp", "/XRP", "/ripple"], async (msg) => {
+    return await getCryptoApi(bot, "xrp", msg);
+  });
 
+  bot.on(["/bat", "/BAT", "/brave", "/basic-attention-token"], async (msg) => {
+    return await getCryptoApi(bot, "bat", msg);
+  });
 
-    bot.on(['/btc','/BTC', '/bitcoin'], async(msg) =>{
-        try{
-            const data = new mercadoApi('btc')
-            let response = await data.requestTickerCoin()
-            let textoLtc =  data.renderCoin(response)
-            bot.sendMessage(msg.from.id, `${textoLtc}`, {parseMode:'html'})
-        }catch(err){
-            console.log(err)
-            bot.sendMessage(msg.from.id, `Deu ruim, espere mais um tempo e tente novamente`)
-        }
-    })
+  bot.start();
+};
 
-    bot.on(['/xrp','/XRP', '/ripple'], async (msg) =>{
-        try{
-            const data = new mercadoApi('xrp')
-            let response = await data.requestTickerCoin()
-            let textoOp =  data.renderCoin(response)
-            bot.sendMessage(msg.from.id, `${textoOp}`, {parseMode:'html'})
-        }catch(err){
-            console.log(err)
-            bot.sendMessage(msg.from.id, `Deu ruim, espere mais um tempo e tente novamente`)
-        }
-    })
-
-bot.start()
-
-}
+const getCryptoApi = async (bot, cryptoName, msg) => {
+  try {
+    const data = new criptoApi(cryptoName);
+    return data.renderCoin(bot, msg);
+  } catch (err) {
+    console.log("deu ruim");
+    console.log(err);
+    bot.sendMessage(
+      msg.from.id,
+      `Deu ruim, espere mais um tempo e tente novamente`
+    );
+  }
+};

@@ -1,57 +1,72 @@
-const axios = require('axios')
-const {convertDate, float} = require('../utils/timeUtils')
+const axios = require("axios");
+const { convertDate, float } = require("../utils/timeUtils");
 
-class mercadobitcoinApi{
-    constructor(coin=undefined){
-        this._endpoint = 'https://www.mercadobitcoin.net/api/';
-        this._coin = coin;
-        this.endpointCoin = this.endpoint+this.coin
-        this._realNameCoin = this.discoverName()
+class criptoApi {
+  constructor(coin = undefined) {
+    this._endpoint =
+      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=brl&ids=";
+    this._coin = coin;
+    this.endpointCoin = `${this.endpoint}${this.discoverName()}`;
+  }
+
+  get endpoint() {
+    return this._endpoint;
+  }
+
+  get coin() {
+    return this._coin.toUpperCase();
+  }
+
+  set coin(newCoin) {
+    this._coin = newCoin;
+  }
+
+  discoverName() {
+    switch (this.coin) {
+      case "LTC":
+        return "litecoin";
+      case "BTC":
+        return "bitcoin";
+      case "XRP":
+        return "ripple";
+      case "BAT":
+        return "basic-attention-token";
     }
+  }
 
-    get endpoint(){
-        return this._endpoint;
+  async requestTickerCoin() {
+    try {
+      const response = await axios.get(this.endpointCoin);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+
+      return err;
     }
+  }
 
-    get coin(){
-        return this._coin.toUpperCase();
-    }
+  async renderCoin(bot, msg) {
+    const data = await this.requestTickerCoin();
+    const { high_24h, current_price, image, low_24h } = data[0];
+    let date = convertDate();
+    let highValue = `\nMaior valor nas ultimas 24h: <b>R$${float(
+      high_24h
+    ).toFixed(2)}</b>`;
+    let lowValue = `\nMenor valor nas ultimas 24h: <b>R$${float(
+      low_24h
+    ).toFixed(2)}</b>`;
+    let currentValue = `\nValor atual: <b>R$${float(current_price).toFixed(
+      2
+    )}</b>`;
+    let nowTime = `Hora: ${date}\n`;
+    let textOperation = `${nowTime}${currentValue}${highValue}${lowValue}`;
 
-    set coin(newCoin){
-        this._coin = newCoin
-    }
-
-    discoverName(){
-        switch(this.coin){
-            case "LTC":
-                return "Litecoin"
-            case "BTC":
-                return "Bitcoin"
-            case "XRP": 
-                return "Ripple"
-        }
-    }
-
-    async requestTickerCoin() {
-        try{
-            const response = await axios.get(this.endpointCoin+`/ticker`)
-            return response.data
-        }catch(err){
-            return err
-            console.log('error')
-        }
-    }
-
-    renderCoin(data){
-        let date = convertDate()
-        let ultimoValor = float(data.ticker.last).toFixed(2)
-        let maxValor24 = float(data.ticker.high).toFixed(2)
-        let highValue = `\nMaior valor nas ultimas 24h: <b>R$${maxValor24}</b>`
-        let atualValue = `\nValor atual: <b>R$${ultimoValor}</b>`
-        let textOperation = `$${this.coin} <b>${this.discoverName()} --- ${date}</b>${highValue}${atualValue}`
-        return textOperation
-    }
-
+    bot.sendPhoto(msg.from.id, image, {
+      caption: `${this.coin}${textOperation}`,
+      parseMode: "html",
+      replyToMessage: true,
+    });
+  }
 }
 
-module.exports = mercadobitcoinApi
+module.exports = criptoApi;
