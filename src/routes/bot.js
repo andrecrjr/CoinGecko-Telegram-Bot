@@ -1,5 +1,5 @@
-const criptoApi = require("../controllers/daoRequests");
 const bot = require("../../config");
+const getCryptoApi = require("./utils");
 
 const texto = `Bem vindo ao bot (não-oficial) para consultas em criptomoedas do GeckoCoin! created by @andrecrjr.
 \n <a href="https://brave.com/eel072">Use Brave Browser para ganhar tokens BAT</a> `;
@@ -71,18 +71,4 @@ module.exports = () => {
   });
 
   bot.start();
-};
-
-const getCryptoApi = async (bot, cryptoName, msg) => {
-  try {
-    const data = new criptoApi(cryptoName);
-    return data.renderCoin(bot, msg);
-  } catch (err) {
-    console.log("deu ruim");
-    console.log(err);
-    bot.sendMessage(
-      msg.from.id,
-      `Deu ruim, espere mais um tempo e tente novamente`
-    );
-  }
 };

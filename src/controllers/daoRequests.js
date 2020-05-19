@@ -49,20 +49,15 @@ class criptoApi {
     const data = await this.requestTickerCoin();
     const { high_24h, current_price, image, low_24h } = data[0];
     let date = convertDate();
-    let highValue = `\nMaior valor nas ultimas 24h: <b>R$${float(
-      high_24h
-    ).toFixed(2)}</b>`;
-    let lowValue = `\nMenor valor nas ultimas 24h: <b>R$${float(
-      low_24h
-    ).toFixed(2)}</b>`;
-    let currentValue = `\nValor atual: <b>R$${float(current_price).toFixed(
-      2
-    )}</b>`;
-    let nowTime = `Hora: ${date}\n`;
-    let textOperation = `${nowTime}${currentValue}${highValue}${lowValue}`;
+    let textOperation = `
+        $${this.coin} --- ${date}\n
+        Valor atual: <b>R$${float(current_price)}</b>
+        Maior valor nas ultimas 24h: <b>R$${float(high_24h)}</b>
+        Menor valor nas ultimas 24h: <b>R$${float(low_24h)}</b>
+    `;
 
     bot.sendPhoto(msg.from.id, image, {
-      caption: `${this.coin}${textOperation}`,
+      caption: `${textOperation}`,
       parseMode: "html",
       replyToMessage: true,
     });

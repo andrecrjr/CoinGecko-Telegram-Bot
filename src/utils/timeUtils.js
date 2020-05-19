@@ -1,11 +1,12 @@
+const convertDate = () => {
+  let date = new Date().toLocaleString("pt-BR", {
+    timeZone: "America/Sao_Paulo",
+  });
+  return date;
+};
 
-const convertDate = () =>{
-    let date = new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"});    
-    return date;
-}
+const float = (money) => {
+  return parseFloat(money).toFixed(2);
+};
 
-const float = (money) =>{
-    return parseFloat(money)
-}
-
-module.exports = {convertDate, float}
+module.exports = { convertDate, float };
