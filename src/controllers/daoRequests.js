@@ -50,11 +50,11 @@ class criptoApi {
     const { high_24h, current_price, image, low_24h } = data[0];
     let date = convertDate();
     let textOperation = `
-        $${this.coin} --- ${date}\n
-        Valor atual: <b>R$${float(current_price)}</b>
-        Maior valor nas ultimas 24h: <b>R$${float(high_24h)}</b>
-        Menor valor nas ultimas 24h: <b>R$${float(low_24h)}</b>
-    `;
+$${this.coin} --- ${date}\n
+Valor atual: <b>R$${float(current_price)}</b>
+Maior valor nas ultimas 24h: <b>R$${float(high_24h)}</b>
+Menor valor nas ultimas 24h: <b>R$${float(low_24h)}</b>
+`;
 
     bot.sendPhoto(msg.from.id, image, {
       caption: `${textOperation}`,
