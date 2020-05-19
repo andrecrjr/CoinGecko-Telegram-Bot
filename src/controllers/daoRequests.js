@@ -55,6 +55,7 @@ Valor atual: <b>R$${float(current_price)}</b>
 Maior valor nas ultimas 24h: <b>R$${float(high_24h)}</b>
 Menor valor nas ultimas 24h: <b>R$${float(low_24h)}</b>
 `;
+    console.log("Resultado final", this.coin);
 
     bot.sendPhoto(msg.from.id, image, {
       caption: `${textOperation}`,
