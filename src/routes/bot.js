@@ -12,14 +12,8 @@ module.exports = () => {
         // First row with command callback button
         bot.inlineButton("Litecoin", { callback: "/ltc" }),
       ],
-      [
-        // Second row with regular command button
-        bot.inlineButton("Bitcoin", { callback: "/btc" }),
-      ],
-      [
-        // Second row with regular command button
-        bot.inlineButton("Ripple", { callback: "/xrp" }),
-      ],
+      [bot.inlineButton("Bitcoin", { callback: "/btc" })],
+      [bot.inlineButton("Ripple", { callback: "/xrp" })],
       [bot.inlineButton("BAT", { callback: "/bat" })],
     ]);
 
