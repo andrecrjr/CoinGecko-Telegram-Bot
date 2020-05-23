@@ -1,4 +1,10 @@
 {
+  "name": "gecko-cripto-bot",
+  "version": "2.0",
+  "description": "Bot to access Geckcoin and get cryptocurrency price to telegram",
+  "main": "index.js",
+  "author": "Ac Junior",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.19.0",
     "dotenv": "^8.0.0",
