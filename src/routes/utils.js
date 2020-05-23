@@ -1,15 +1,11 @@
 const criptoApi = require("../controllers/daoRequests");
 
-const getCryptoApi = async (bot, cryptoName, msg) => {
+const getCryptoApi = async (cryptoSymbol, cryptoName) => {
   try {
-    const data = new criptoApi(cryptoName);
-    return data.renderCoin(bot, msg);
+    const data = new criptoApi(cryptoSymbol, cryptoName);
+    return data.renderCoin();
   } catch (err) {
     console.log(err);
-    bot.sendMessage(
-      msg.from.id,
-      `Deu ruim, espere mais um tempo e tente novamente`
-    );
   }
 };
 
