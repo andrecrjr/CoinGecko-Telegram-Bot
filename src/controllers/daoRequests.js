@@ -28,7 +28,6 @@ class criptoApi {
 
   async requestTickerCoin() {
     try {
-      console.log(this.slugifyApi());
       const response = await axios.get(this.endpointCoin);
       return response.data;
     } catch (err) {
@@ -41,8 +40,6 @@ class criptoApi {
   async renderCoin() {
     const data = await this.requestTickerCoin();
     let date = convertDate();
-    console.log(data[0]);
-
     const { high_24h, low_24h, current_price } = data[0];
     let textOperation = `
 $${this.coin} | ${this.coinName} | ${date}\n

@@ -28,6 +28,8 @@ for (let crypto in cryptos) {
               parse_mode: "html",
             }
           );
+          //stop the eternal loading with callbackQuery
+          await msg.answerCbQuery(`Price for ${crypto}`);
         } catch (e) {
           console.log(e);
         }
