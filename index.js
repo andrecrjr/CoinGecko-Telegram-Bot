@@ -5,7 +5,10 @@ let app = express();
 app.get("/", function (req, res) {
   require("./src/routes/bot")();
 
-  res.sendFile(path.join(__dirname + "/index.html"));
+  res.sendFile(path.join(__dirname + "/website/index.html"));
+});
+app.get("/commands", (req, res) => {
+  res.sendFile(path.join(__dirname + "/website/commands.html"));
 });
 
 let port = process.env.PORT || 3000;

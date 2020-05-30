@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Commands from geckocoinbot</title>
+    <style>
+      .all_coins {
+        display: flex;
+        flex-direction: column;
+        width: 25%;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>
+      Almost all the commands from geckocoin bot here, if the symbol has the
+      same from another, so the first will be the choice to show up in the bot!
+    </h3>
+    <div class="all_coins"></div>
+    <script>
+      async function insertData() {
+        try {
+          const data = await fetch(
+            "https://api.coingecko.com/api/v3/coins/list"
+          );
+          const dataTable = await data.json();
+          if (dataTable) {
+            document.querySelector(".all_coins").innerHTML = dataTable
+              .map(
+                (ctx) => `<p>/${ctx.symbol} - Price for <b>${ctx.name}</b> </p>`
+              )
+              .join("");
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      insertData();
+    </script>
+  </body>
+</html>

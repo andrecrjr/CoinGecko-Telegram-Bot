@@ -6,7 +6,7 @@ const convertDate = () => {
 };
 
 const float = (money) => {
-  return parseFloat(money).toFixed(2);
+  return parseFloat(money);
 };
 
 module.exports = { convertDate, float };

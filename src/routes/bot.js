@@ -1,17 +1,41 @@
 const bot = require("../config");
 const showMenu = require("./menus");
 const getCryptoApi = require("./utils");
+const Extra = require("telegraf/extra");
+
+const Markup = require("telegraf/markup");
 
 const texto = (
   msg
-) => `Bem vindo ${msg.from.username} ao bot (não-oficial) para consultas em criptomoedas do GeckoCoin! created by @andrecrjr.
-\n <a href="https://brave.com/eel072">Use Brave Browser para ganhar tokens BAT</a>\n
-Use /menu - Acesse nosso menu.`;
+) => `Welcome ${msg.from.username} to GeckoCoin (unoficial) Bot! created by @andrecrjr.
+\n <a href="https://brave.com/eel072">Use Brave Browser BAT tokens</a>\n
+/menu - Open menu\ntip:You can choose any symbol cryptocurrency, just call /btc for example!`;
+
+const keyboard = [
+  [
+    new Markup().urlButton(
+      "All cryptocurrency commands",
+      "https://geckocoin-bot-telegram.herokuapp.com/commands"
+    ),
+  ],
+];
 
 module.exports = () => {
   bot.start((msg) =>
     msg.replyWithHTML(texto(msg), { disable_web_page_preview: true })
   );
+  bot.catch((err, msg) => {
+    msg.reply("Sorry i didn't understand what you said!?");
+    console.log(err);
+  });
   bot.use(showMenu.init());
+  bot.on("text", async (msg) => {
+    if (msg.message.entities[0].type === "bot_command") {
+      msg.reply(await getCryptoApi(msg.message.text.replace("/", "")), {
+        reply_markup: new Markup().inlineKeyboard(keyboard),
+        parse_mode: "Html",
+      });
+    }
+  });
   bot.startPolling();
 };

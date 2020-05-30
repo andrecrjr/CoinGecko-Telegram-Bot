@@ -1,8 +1,8 @@
 const criptoApi = require("../controllers/daoRequests");
 
-const getCryptoApi = async (cryptoSymbol, cryptoName) => {
+const getCryptoApi = async (cryptoSymbol) => {
   try {
-    const data = new criptoApi(cryptoSymbol, cryptoName);
+    const data = new criptoApi(cryptoSymbol);
     return data.renderCoin();
   } catch (err) {
     console.log(err);
