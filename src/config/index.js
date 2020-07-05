@@ -1,4 +1,5 @@
 const Telegraf = require("telegraf");
+let bot;
 if (process.env.NODE_ENV !== "prd") {
   console.log("DEVELOPER AREA");
   require("dotenv").config();

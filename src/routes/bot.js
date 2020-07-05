@@ -36,6 +36,7 @@ bot.on("text", async (msg) => {
     });
   }
 });
+
 if (process.env.NODE_ENV !== "prd") {
   console.log("oops");
   bot.startPolling();
