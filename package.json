@@ -14,7 +14,7 @@
     "telegraf-inline-menu": "^4.0.1"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node ./src/index.js",
     "dev": "nodemon index.js"
   },
   "devDependencies": {
