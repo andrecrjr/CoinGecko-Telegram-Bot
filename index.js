@@ -7,7 +7,16 @@ const CURRENT_URL = "https://geckocoin-bot-telegram.herokuapp.com";
 app.use(bot.webhookCallback("/bot"));
 
 app.get("/", async function (req, res) {
-  await bot.telegram.setWebhook(`${CURRENT_URL}/bot`);
+  try {
+    if (process.env.NODE_ENV === "prd") {
+      await bot.telegram.setWebhook(`${CURRENT_URL}/bot`);
+    } else {
+      await bot.telegram.deleteWebhook(`${CURRENT_URL}/bot`);
+      return require("./src/routes/bot");
+    }
+  } catch (e) {
+    console.log(e);
+  }
   res.sendFile(path.join(__dirname + "/website/index.html"));
 });
 app.get("/commands", (req, res) => {
