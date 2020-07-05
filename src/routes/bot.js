@@ -37,5 +37,9 @@ module.exports = () => {
       });
     }
   });
-  bot.startPolling();
+  if (process.env.NODE_ENV !== "prd") {
+    bot.startPolling();
+  } else {
+    bot.startWebhook("/bot");
+  }
 };
