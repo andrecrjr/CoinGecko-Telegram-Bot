@@ -50,7 +50,7 @@ if (process.env.NODE_ENV !== "prd") {
 
 app.use(bot.webhookCallback("/bot"));
 if (process.env.NODE_ENV === "prd") {
-  await bot.telegram.setWebhook(`${CURRENT_URL}/bot`);
+  bot.telegram.setWebhook(`${CURRENT_URL}/bot`);
 }
 
 app.get("/", async function (req, res) {
