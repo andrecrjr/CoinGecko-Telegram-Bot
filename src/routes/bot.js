@@ -40,6 +40,6 @@ module.exports = () => {
   if (process.env.NODE_ENV !== "prd") {
     bot.startPolling();
   } else {
-    bot.startWebhook("/bot");
+    bot.startWebhook("/bot", null, 5000);
   }
 };
