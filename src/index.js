@@ -40,13 +40,13 @@ bot.on("text", async (msg) => {
   }
 });
 
-if (process.env.NODE_ENV !== "prd") {
-  console.log("oops");
-  bot.startPolling();
-} else {
-  console.log("oops");
-  bot.startWebhook("/bot", null, process.env.PORT);
-}
+// if (process.env.NODE_ENV !== "prd") {
+//   console.log("oops");
+//   bot.startPolling();
+// } else {
+//   console.log("oops");
+//   bot.startWebhook("/bot", null, process.env.PORT);
+// }
 
 app.use(bot.webhookCallback("/bot"));
 if (process.env.NODE_ENV === "prd") {
