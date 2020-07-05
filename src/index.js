@@ -40,13 +40,10 @@ bot.on("text", async (msg) => {
   }
 });
 
-// if (process.env.NODE_ENV !== "prd") {
-//   console.log("oops");
-//   bot.startPolling();
-// } else {
-//   console.log("oops");
-//   bot.startWebhook("/bot", null, process.env.PORT);
-// }
+if (process.env.NODE_ENV !== "prd") {
+  console.log("oops");
+  bot.startPolling();
+}
 
 app.use(bot.webhookCallback("/bot"));
 if (process.env.NODE_ENV === "prd") {
@@ -54,10 +51,10 @@ if (process.env.NODE_ENV === "prd") {
 }
 
 app.get("/", async function (req, res) {
-  res.sendFile(path.join(__dirname + "/website/index.html"));
+  res.sendFile(path.join(__dirname, "../website", "index.html"));
 });
 app.get("/commands", (req, res) => {
-  res.sendFile(path.join(__dirname + "/website/commands.html"));
+  res.sendFile(path.join(__dirname, "../website", "commands.html"));
 });
 
 let port = process.env.PORT || 3000;
