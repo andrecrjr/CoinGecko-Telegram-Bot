@@ -1,1 +1,0 @@
-const bot = require("../config");
