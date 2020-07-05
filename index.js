@@ -1,10 +1,13 @@
 let express = require("express");
 let path = require("path");
+let bot = require("./src/config");
 let app = express();
+const CURRENT_URL = "https://geckocoin-bot-telegram.herokuapp.com"
 
-app.get("/", function (req, res) {
-  require("./src/routes/bot")();
+app.use(bot.webhookCallback("/bot"));
 
+app.get("/", function async (req, res) {
+  await bot.telegram.setWebhook(`${CURRENT_URL}/bot`)
   res.sendFile(path.join(__dirname + "/website/index.html"));
 });
 app.get("/commands", (req, res) => {
