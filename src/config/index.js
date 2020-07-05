@@ -6,11 +6,7 @@ if (process.env.NODE_ENV !== "prd") {
   bot = new Telegraf(process.env.TOKEN_BTC);
 } else {
   console.log("PRODUCTION AREA");
-  bot = new Telegraf(process.env.TOKEN_BTC, {
-    telegram: {
-      webhookReply: false,
-    },
-  });
+  bot = new Telegraf(process.env.TOKEN_BTC);
 }
 
 module.exports = bot;
