@@ -7,13 +7,14 @@ const CURRENT_URL = "https://geckocoin-bot-telegram.herokuapp.com";
 require("./routes/bot")(bot);
 
 if (process.env.NODE_ENV !== "prd") {
-  console.log("DEV PRODUCTION");
-  bot.telegram.deleteWebhook(`0.0.0.0:3000/bot`);
+  console.log("DEV SECTION");
+  bot.telegram.deleteWebhook();
   bot.startPolling();
 }
 
-app.use(bot.webhookCallback("/bot"));
 if (process.env.NODE_ENV === "prd") {
+  app.use(bot.webhookCallback("/bot"));
+
   bot.telegram.setWebhook(`${CURRENT_URL}/bot`);
 }
 
