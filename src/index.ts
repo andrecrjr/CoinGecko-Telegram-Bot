@@ -1,20 +1,16 @@
-let express = require("express");
-let path = require("path");
-let bot = require("./config");
+import express from "express";
+import path from "path";
+import bot from "./config";
 let app = express();
-const CURRENT_URL = "https://geckocoin-bot-telegram.herokuapp.com";
-
-require("./routes/bot")(bot);
+const CURRENT_URL = process.env.SERVER_URL;
 
 if (process.env.NODE_ENV !== "prd") {
   console.log("DEV SECTION");
-  bot.telegram.deleteWebhook();
-  bot.startPolling();
+  bot.launch();
 }
 
 if (process.env.NODE_ENV === "prd") {
   app.use(bot.webhookCallback("/bot"));
-
   bot.telegram.setWebhook(`${CURRENT_URL}/bot`);
 }
 
@@ -25,7 +21,7 @@ app.get("/commands", (req, res) => {
   res.sendFile(path.join(__dirname, "../website", "commands.html"));
 });
 
-let port = process.env.PORT || 3000;
+const port = Number(process.env.PORT) || 3000;
 
 app.listen(port, "0.0.0.0", function () {
   console.log(`Funcionando na porta: ${process.env.PORT}`);
