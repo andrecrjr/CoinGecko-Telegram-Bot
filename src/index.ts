@@ -1,6 +1,6 @@
 import express from "express";
 import path from "path";
-import bot from "./config";
+import bot from "./routes/bot";
 let app = express();
 const CURRENT_URL = process.env.SERVER_URL;
 
@@ -10,8 +10,12 @@ if (process.env.NODE_ENV !== "prd") {
 }
 
 if (process.env.NODE_ENV === "prd") {
-  app.use(bot.webhookCallback("/bot"));
-  bot.telegram.setWebhook(`${CURRENT_URL}/bot`);
+  bot.launch({
+    webhook: {
+      domain: process.env.SERVER_URL,
+      port: Number(process.env.PORT),
+    },
+  });
 }
 
 app.get("/", async function (req, res) {

@@ -1,6 +1,6 @@
 import criptoApi from "../controllers/daoRequests";
 
-export const getCryptoApi = async (cryptoSymbol) => {
+export const getCryptoApi = async (cryptoSymbol: string | undefined) => {
   try {
     const data = new criptoApi(cryptoSymbol);
     return data.renderCoin();

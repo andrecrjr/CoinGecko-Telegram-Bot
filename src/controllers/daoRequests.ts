@@ -1,12 +1,23 @@
 const axios = require("axios");
-const { convertDate, float } = require("../utils/timeUtils");
+import { convertDate, float } from "../utils/timeUtils";
+
+type coinData = {
+  id: string;
+  symbol: string;
+  name: "";
+  low_24: number;
+  high_24: number;
+};
 
 class criptoApi {
-  constructor(coin = undefined) {
+  _endpoint: string;
+  _coin: string;
+  coinData: coinData;
+  constructor(coin = "") {
     this._endpoint =
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=";
     this._coin = coin;
-    this.coinData = null;
+    this.coinData = { id: "", symbol: "", name: "", low_24: 0, high_24: 0 };
   }
 
   get endpoint() {
@@ -22,7 +33,7 @@ class criptoApi {
   }
 
   async getCoinData() {
-    const { data } = await axios.get(
+    const { data }: { data: coinData[] } = await axios.get(
       "https://api.coingecko.com/api/v3/coins/list",
       {
         cache: {
@@ -30,7 +41,9 @@ class criptoApi {
         },
       }
     );
-    return data.filter((filterCoin) => filterCoin.symbol === this.coin);
+    return data.filter(
+      (filterCoin: coinData) => filterCoin.symbol === this.coin
+    );
   }
 
   async requestTickerCoin() {
@@ -65,4 +78,4 @@ Lowest price in 24h : <b>${
   }
 }
 
-module.exports = criptoApi;
+export default criptoApi;
