@@ -1,8 +1,7 @@
-import showMenu from "./menus";
+import { mainMenu } from "./menus";
 import { getCryptoApi } from "../utils";
 import bot from "../config";
 import { Markup } from "telegraf";
-import { InlineKeyboardMarkup } from "telegraf/typings/core/types/typegram";
 
 const texto = (msg: string | undefined) => `Welcome ${
   msg || ``
@@ -13,11 +12,11 @@ const keyboard = Markup.inlineKeyboard([
   [
     Markup.button.callback(
       "All cryptocurrency commands",
-      "https://geckocoin-bot-telegram.herokuapp.com/commands",
+      `${process.env.COMMANDS_URL}`,
       false
     ),
   ],
-]);
+]).reply_markup;
 
 bot.start((msg) =>
   msg.replyWithHTML(texto(msg.from.username), {
@@ -28,7 +27,7 @@ bot.catch((err, msg) => {
   msg.reply("Sorry i didn't understand what you said!?");
   console.log(err);
 });
-//bot.use(showMenu.init());
+bot.use(mainMenu);
 
 bot.on("text", async (msg) => {
   console.log(msg);

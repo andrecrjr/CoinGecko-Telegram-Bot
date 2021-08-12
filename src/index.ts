@@ -2,7 +2,6 @@ import express from "express";
 import path from "path";
 import bot from "./routes/bot";
 let app = express();
-const CURRENT_URL = process.env.SERVER_URL;
 
 if (process.env.NODE_ENV !== "prd") {
   console.log("DEV SECTION");

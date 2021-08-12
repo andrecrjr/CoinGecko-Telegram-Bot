@@ -1,6 +1,6 @@
 import criptoApi from "../controllers/daoRequests";
 
-export const getCryptoApi = async (cryptoSymbol: string | undefined) => {
+export const getCryptoApi = async (cryptoSymbol: string) => {
   try {
     const data = new criptoApi(cryptoSymbol);
     return data.renderCoin();
@@ -9,7 +9,9 @@ export const getCryptoApi = async (cryptoSymbol: string | undefined) => {
   }
 };
 
-export let cryptos = {
+export let cryptos: {
+  [key: string]: string;
+} = {
   BTC: "Bitcoin",
   BAT: "Basic attention token",
   LTC: "Litecoin",

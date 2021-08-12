@@ -1,7 +1,7 @@
 import { cryptos } from "../utils";
 import { getCryptoApi } from "../utils";
 import { Markup } from "telegraf";
-import { Telegraf, Context as BaseContext } from "telegraf";
+import { Context as BaseContext } from "telegraf";
 import { MenuTemplate, MenuMiddleware } from "telegraf-inline-menu";
 type MyContext = BaseContext & { match: RegExpExecArray | undefined };
 
@@ -19,10 +19,7 @@ for (let crypto in cryptos) {
     {
       do: async (msg) => {
         try {
-          await msg.editMessageText(await getCryptoApi(crypto), {
-            reply_markup: Markup.inlineKeyboard(msg.callbackQuery.message),
-            parse_mode: "HTML",
-          });
+          await msg.editMessageText((await getCryptoApi(crypto)) || "");
           //stop the eternal loading with callbackQuery
           await msg.answerCbQuery(`Price for ${crypto}`);
           return true;
@@ -35,20 +32,21 @@ for (let crypto in cryptos) {
   );
 }
 
-listCrypto.simpleButton("Commands cryptocurrency", "link_criptocurrency", {
-  doFunc: (msg) => {
+listCrypto.interact("Commands cryptocurrency", "link_criptocurrency", {
+  do: (msg) => {
     msg.reply("If its not in button, try the commands:", {
-      reply_markup: new Markup().inlineKeyboard([
+      reply_markup: Markup.inlineKeyboard([
         [
-          new Markup().urlButton(
+          Markup.button.callback(
             "All cryptocurrency commands",
-            "https://geckocoin-bot-telegram.herokuapp.com/commands"
+            `${process.env.COMMANDS_URL}`
           ),
         ],
-      ]),
+      ]).reply_markup,
     });
+    return true;
   },
 });
-showMenu.setCommand("menu");
+// showMenu.setCommand("menu");
 
-export default showMenu;
+export const mainMenu = new MenuMiddleware("/", showMenu);

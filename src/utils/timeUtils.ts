@@ -5,6 +5,6 @@ export const convertDate = () => {
   return date;
 };
 
-export const float = (money) => {
+export const float = (money: string) => {
   return parseFloat(money);
 };

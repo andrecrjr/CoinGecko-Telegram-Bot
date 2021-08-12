@@ -4,5 +4,6 @@ declare namespace NodeJS {
     PORT?: string;
     TOKEN_BOT_AUTH: string;
     SERVER_URL?: string;
+    COMMANDS_URL: string;
   }
 }
