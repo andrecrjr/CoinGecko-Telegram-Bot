@@ -2,13 +2,10 @@
 	"name": "Coingecko Cryptobot",
 	"description": "Crypto thing bot",
 	"success_url": "/bot",
-	"scripts": {
-		"postdeploy": "bundle exec rake bootstrap"
-	},
 	"env": {
-		"SECRET_TOKEN": {
-			"NODE_ENV": "prd"
-		}
+		"NODE_ENV": "prd",
+		"TOKEN_BTC": "",
+		"URL_HEROKU": ""
 	},
 	"formation": {
 		"web": {
