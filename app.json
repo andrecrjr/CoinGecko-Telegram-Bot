@@ -4,21 +4,14 @@
 	"success_url": "/bot",
 	"env": {
 		"NODE_ENV": "prd",
-		"TOKEN_BTC": "",
-		"URL_HEROKU": ""
+		"TOKEN_BTC": "(your telegram bot token on botfather TELEGRAM)",
+		"URL_HEROKU": "https://(REPLACE_THIS_BY_YOUR_APP_NAME).herokuapp.com"
 	},
 	"formation": {
 		"web": {
 			"quantity": 1,
-			"size": "standard-1x"
+			"size": "free"
 		}
 	},
-	"image": "heroku/node",
-	"environments": {
-		"test": {
-			"scripts": {
-				"test": "bundle exec rake test"
-			}
-		}
-	}
+	"image": "heroku/node"
 }
