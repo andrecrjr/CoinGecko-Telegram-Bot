@@ -1,6 +1,6 @@
 # Coingecko Telegram CryptoBot
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/andrecrjr/CoinGecko-Telegram-Bot/tree/develop)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Leperle/parasolfinance-bot/tree/master)
 
 
 `yarn start` - ran your server once - used by run in your VPS/Server host.
